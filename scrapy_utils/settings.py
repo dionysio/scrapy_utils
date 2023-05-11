@@ -62,7 +62,7 @@ def get_scrapy_settings(project_name=''):
             ("FIELDSTATS_COUNTS_ONLY", True),
 
             ("HTTPCACHE_ENABLED", True),
-            ("HTTPCACHE_EXPIRATION_SECS", 30000000),
+            ("HTTPCACHE_EXPIRATION_SECS", 1814400),
             ("HTTPCACHE_STORAGE", 'scrachy.middleware.httpcache.AlchemyCacheStorage'),
 
             ("FEED_FORMAT", 'json'),
