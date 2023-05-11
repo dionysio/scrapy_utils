@@ -51,8 +51,6 @@ def get_scrapy_settings(project_name=''):
 
             ("COOKIES_ENABLED", True),
 
-            ("SPIDER_MIDDLEWARES", {'scrapy_utils.middlewares.SaveJobInDatabase': 300}),
-
             ("DOWNLOADER_MIDDLEWARES", {
                 'scrachy.middleware.ignorecached.IgnoreCachedResponse': 50,
                 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 1000}),
