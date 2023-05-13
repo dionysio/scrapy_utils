@@ -1,14 +1,11 @@
 import datetime
-import uuid
 import json
 from decimal import Decimal
 import logging
 from contextlib import contextmanager
 
-from sqlalchemy import create_engine, Column, ForeignKey, UniqueConstraint, String
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import (
-    Integer, DateTime, Float, Boolean, Text, JSON, Index, func)
 from scrapy.utils.project import get_project_settings
 from sqlalchemy.orm import sessionmaker
 
