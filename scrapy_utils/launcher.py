@@ -12,9 +12,12 @@ from .newrelic_cron import newrelic_cron
 
 def scrapy_launcher(func):
     @wraps(func)
-    def _wrapped(event, context=None):
+    def _wrapped(event=None, context=None):
+        if not event:
+            event = {}
         job_id, project_settings = setup_log()
-        process = CrawlerProcess({**project_settings, **event.get('settings', {})}, install_root_handler=False)
+        settings = event.get('settings', {})
+        process = CrawlerProcess({**project_settings, **settings}, install_root_handler=False)
 
         return func(process=process, event=event, context=context, job_id=job_id, project_settings=project_settings)
     return _wrapped

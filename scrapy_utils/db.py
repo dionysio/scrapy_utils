@@ -26,12 +26,17 @@ def dumps(d):
     return json.dumps(d, default=_default)
 
 
-def db_connect():
+def db_connect(**kwargs):
     """
     Performs database connection using database settings from settings.py.
     Returns sqlalchemy engine instance
     """
-    return create_engine(get_project_settings().get("DATABASE_URL"), json_serializer=dumps)
+    settings = get_project_settings()
+    kwargs['connect_args'] = {
+        "application_name": settings.get('BOT_NAME'),
+        'options': '-c lock_timeout=1000 -c statement_timeout=20000'
+    }
+    return create_engine(settings.get("DATABASE_URL"), json_serializer=dumps, **kwargs)
 
 
 def create_tables(engine):
