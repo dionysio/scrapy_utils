@@ -67,3 +67,22 @@ def get_session(*args, **kwargs):
     finally:
         if session:
             session.close()
+
+
+class ScrapedItem(Base, dict):
+    __abstract__ = True
+
+    def from_item(self, item):
+        for k, v in item.items():
+            if v:
+                setattr(self, k, v)
+        return self
+
+    def update_from(self, new, *excluded):
+        for column in self.__table__.columns:
+            column = column.name
+            if column not in excluded:
+                new_value = getattr(new, column, None)
+                if new_value not in ("", " ", None) and new_value != getattr(self, column, None):
+                    setattr(self, column, new_value)
+        return self
